@@ -1,0 +1,32 @@
+*.pyc
+token.pickle
+new_release.sh
+*.json
+poetry.lock
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+_build
+.cache
+*.so
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.benchmarks
+.coverage
+.tox
+.pytest_cache
+
+.DS_Store
+.idea/*
+.python-version
+.vscode/*
+
+.venv
+/releases/*
+
