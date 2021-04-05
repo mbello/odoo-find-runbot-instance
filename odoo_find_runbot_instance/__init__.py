@@ -3,12 +3,12 @@ from bs4 import BeautifulSoup
 import re
 
 
-def runbot_admin_user_credentials():
-    return ['admin', 'admin']
+def runbot_admin_user_credentials() -> Tuple[str, str]:
+    return 'admin', 'admin'
 
 
-def runbot_unpriv_user_credentials():
-    return ['demo', 'demo']
+def runbot_unpriv_user_credentials() -> Tuple[str, str]:
+    return 'demo', 'demo'
 
 
 def runbot_instance_url_to_rpc_url_and_db(lnk: str) -> Tuple[str, str]:
@@ -16,13 +16,13 @@ def runbot_instance_url_to_rpc_url_and_db(lnk: str) -> Tuple[str, str]:
     return lnk, m.group(1)
 
 
-def scrap_versions(http_client):
+def scrap_versions(http_client) -> Dict[str, Dict[str, Any]]:
     versions = dict()
     resp = http_client.get(url='http://runbot.odoo.com/runbot')
     soup = BeautifulSoup(resp.text, features='html.parser')
     tags = soup.find_all("a", attrs={'title': 'View Bundle'})
     for t in tags:
-        versions[str(t.b.string)] = {"href": t.get('href')}
+        versions[str(t.b.string)] = {"href": str(t.get('href'))}
 
     return versions
 
@@ -32,7 +32,7 @@ def scrap_batches(http_client,
                   versions: Optional[List[str]] = None,
                   limit: int = 1,
                   success_only: bool = True,
-                  runbot_url: str = "https://runbot.odoo.com"):
+                  runbot_url: str = "https://runbot.odoo.com") -> None:
     
     if not versions:
         versions = v_dict.keys()
@@ -71,5 +71,5 @@ def scrap_batches(http_client,
 
 def get_runbot_url_db(http_client, version: str = 'master', branch: str = 'odoo') -> Tuple[str, str]:
     v = scrap_versions(http_client)
-    scrap_batches(v, versions=[version], limit=1, success_only=True)
+    scrap_batches(http_client, v, versions=[version], limit=1, success_only=True)
     return v[version]['batches'][0]['builds'][branch]
