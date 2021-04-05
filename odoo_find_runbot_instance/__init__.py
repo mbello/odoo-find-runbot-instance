@@ -12,7 +12,10 @@ def runbot_unpriv_user_credentials() -> Tuple[str, str]:
 
 
 def runbot_instance_url_to_rpc_url_and_db(lnk: str) -> Tuple[str, str]:
+    if lnk.startswith("http:"):
+        lnk = f"https{lnk[4:]}"
     m = re.match(r"http[s]?://([\w-]+)\.", lnk)
+    
     return lnk, m.group(1)
 
 

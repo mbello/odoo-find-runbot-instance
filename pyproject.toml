@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "odoo-find-runbot-instance"
-version = "0.1.2"
+version = "0.1.3"
 description = "Find and return url, database and user credentials of a live Odoo instance running on the runbot"
 authors = ["mbello <mbello@users.noreply.github.com>"]
 license = "MIT"
